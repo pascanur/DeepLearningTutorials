@@ -402,7 +402,7 @@ properties.
 Weight initialization
 ---------------------
 
-The rationale for initializing the weights by sampling from 
+The rational for initializing the weights by sampling from 
 :math:`uniform[-\frac{1}{\sqrt{fan_{in}}},\frac{1}{\sqrt{fan_{in}}}]` is to
 make learning faster at the beginning on training. By initializing with
 small random values around the origin, we make sure that the sigmoid
