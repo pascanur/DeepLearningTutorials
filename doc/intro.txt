@@ -41,6 +41,18 @@ order (the auto-encoders can be read independently of the RBM/DBN thread):
   * :ref:`Restricted Boltzmann Machines <rbm>` - single layer generative RBM model
   * :ref:`Deep Belief Networks <DBN>` - unsupervised generative pre-training of stacked RBMs followed by supervised fine-tuning
 
+For training recurrent neural networks we have a set of tutorials. Each tutorial builds on the preivous 
+ones, so we recommand reading them in sequence (especially for those who are new to this model):
+
+  * :ref:`Primer on recurrent models <rnn_primer>` - covers the theory of recurrent neural networks
+  * :ref:`Echo State Networks for chaos system prediction <esn>`
+  * :ref:`Leaky Echo State Networks <esn_leaky>`
+  * :ref:`Echo State Networks as generator models <esn_generator>`
+  * :ref:`Recurrent neural networks for modeling language at the character level <rnn_char>`
+  * :ref:`Recurrent neural networks for modeling language <rnn_word>`
+  * :ref:`Recurrent neural networks for finding long term correlations in data <rnn_long_term>`
+  * :ref:`Long Short Term Memory models (LSTM) for finding long term correlations un data <lstm_long_term>`
+
 Building towards including the mcRBM model, we have a new tutorial on sampling
 from energy models:
 
@@ -51,6 +63,11 @@ Building towards including the Contractive auto-encoders tutorial, we have the c
 
 Energy-based recurrent neural network (RNN-RBM):
   * :ref:`Modeling and generating sequences of polyphonic music <rnnrbm>`
+
+For using second order or natural gradient, please follow these tutorials:
+
+  * :ref:`Primer on truncated Newton <truncated_newton>`
+  * :ref:`Hessian-Free and Natural Gradient <natgrad>`
 
 .. _Theano: http://deeplearning.net/software/theano
 
