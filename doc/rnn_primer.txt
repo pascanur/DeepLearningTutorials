@@ -1,0 +1,154 @@
+.. _rnn_primer:
+
+Primer on Recurrent Neural Networks
+===================================
+
+A recurrent neural network (RNN) is a recursive map, that at time step :math:`t` combines the state at
+:math:`t-1` with the input to construct a new state. In order to formalize this sentence let us define some notation:
+
+  * :math:`u` stands for the input sequence. :math:`u_t` is the frame at position :math:`t` in the sequence of inputs
+
+  * :math:`h` stands for the (hidden) state of the model. :math:`h_t` is the hidden state at step `t`
+
+  * :math:`y` is the output of the model. :math:`y_t` is the output at time step `t`
+
+  * :math:`W_{hh}` is the recurrent weight matrix (that connects the hidden state :math:`h` to itself)
+
+  * :math:`W_{uh}` is the input weight matrix that goes from the input :math:`u` to the hidden state :math:`h`
+
+  * :math:`W_{hy}` is the ouput weight matrix that goes from the hidden state :math:`h` to the ouput layer :math:`y`
+
+  * :math:`b_h` is the hidden state bias 
+
+  * :math:`b_y` is the output layer bias
+
+  * :math:`\sigma_h` is the activation function for the hidden state
+
+  * :math:`\sigma_y` is the activation function for the output layer
+
+The RNN is defined by the following two equations.
+
+.. math::
+
+    h_t = f(u_{t}, h_{t-1}) = \sigma_h(h_{t-1}W_{hh} + u_t W_{uh} + b_h)
+
+    y_t = \sigma_y(h_t W_{hy} + b_y)
+
+The recurrence is started 
+from :math:`h_0` (the initial hidden state) which is provided by the practitioner 
+or set to zero. At each time step we compute a new state :math:`h_t` and
+predict an output for that step :math:`y_t`. Below this is represented as a
+diagram:
+
+..figure:: images/rnn.png
+    :align: center
+
+.. Note::
+    The RNN is similar to an MLP, with the exception that we allow
+    connections among the hidden units. This changes drastically the model.
+    Through these recurrent connections
+    the model exhibits ''memory''. A RNN can approximate arbitrarly well any
+    dynamical system, compared to a feed-forward neural model that can only
+    approximate nonlinear functions.
+
+The model can be used in several ways. One standard approach is to use 
+the RNN to transcribe some input sequence into an output sequence. 
+This means that the output sequence is of the same length as the input one, 
+and at each time step the ouput of the RNN :math:`y_t` is the prediction of
+the :math:`t`-th frame of the target sequence. 
+
+Another task could be to classify the possible input sequences into
+different categories. One approach is to only consider the output at the end
+of the sequence (after the model has seen the whole sequence). If the input 
+sequence :math:`u` has :math:`T` steps, then :math:`y_T` could be a softmax 
+layer saying in which the category the current sequence falls. 
+
+Training Recurrent Neural Networks
+----------------------------------
+
+Several algorithms are available for training recurrent neural networks. 
+Real Time Recurrent Learning (RTRL), Atyia-Paros learning rule are just a 
+few example. An interesting different approach which involves using the recurrent neural 
+network to construct a random projection has also been proposed under the
+name of Reservoir Computing. 
+
+Backpropagation Through Time (BPTT)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[Rumelhart and others]
+
+TODO: explain the algorithm
+have the plot (copy over)
+write the derivatives with color (copy over)
+
+
+
+Difficulties of training recurrent models
+-----------------------------------------
+[Schmidhuber, Yoshua, us]
+
+copy from the paper basic insights
+
+Proposed solutions
+------------------
+
+Echo State Network (Reservoir Computing)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[HJ]
+point to scholarpedia/techreport
+
+The secret is in the initialization of the network. 
+* spectral radius
+* sparsity (paper by Schrwaun showing is not always important)
+* input scaling
+
+
+Initialization
+~~~~~~~~~~~~~~
+[Ilya]
+* 10 lines paragraph saying trian BPTT starting from HJ initialization
+
+Second-Order methods
+~~~~~~~~~~~~~~~~~~~~
+[Martens & Ilya/Puskorious with Kalman Filter]
+
+* 10 lines paragraph saying 2nd order might work. Mention the key
+components:
+ - exact hessian. 
+
+reason unclear
+
+Clipping and regularizing the model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[Us]
+
+Clipping
+########
+plot + the argument for exploding gradient
+
+Regularizing the model
+######################
+
+Long-Short Term Memory (LSTM) models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[Schmidhuber/Graves]
+
+Some extensions of the model 
+----------------------------
+
+leaky ESNs
+~~~~~~~~~~
+[cite HJ and the other guy]
+
+bi-directional RNN/LSTM
+~~~~~~~~~~~~~~~~~~~~~~~
+[cite Alex Graves]
+
+rectifier units RNN
+~~~~~~~~~~~~~~~~~~~
+[cite us]
+
+deep LSTM
+~~~~~~~~~
+[cite Alex Graves]
+

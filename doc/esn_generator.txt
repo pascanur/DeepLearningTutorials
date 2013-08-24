@@ -1,0 +1,7 @@
+! Assume the user knows the model
+<very short description>
+
+ (1) Describe the task
+ (2) Describe teacher forcing
+ (3) Results and plots
+ (4) Whole code

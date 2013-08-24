@@ -1,0 +1,3 @@
+   (1) Describe the new connectivity in the network
+   (2) Results
+   (3) Whole code

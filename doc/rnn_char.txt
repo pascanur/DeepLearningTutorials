@@ -1,0 +1,8 @@
+! Assume the user knows the model
+
+  (1) Describe the task (loading and stuff)
+  (2) The forward is the same as for ESN (just mention and re-use)
+  (3) How to compute the gradient (TT.grad) & clipping
+  (4) Early stopping loop
+  (5) Results
+  (6) Whole code

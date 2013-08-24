@@ -1,0 +1,4 @@
+
+ (1) Describe the tree structure bit
+ (2) Results
+ (3) Whole code

@@ -1,0 +1,6 @@
+
+ (1) Describe the task
+ (2) Describe how you do minibatches
+ (3) Describe the regularization term
+ (4) Results
+ (5) Whole code

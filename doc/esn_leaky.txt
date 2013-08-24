@@ -1,0 +1,7 @@
+! Assume the user knows the model
+<very short intro>
+
+ (1) Describe the task
+ (2) Describe the update rule 
+ (3) Results and plots
+ (4) Whole code

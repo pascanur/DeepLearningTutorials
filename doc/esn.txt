@@ -1,0 +1,10 @@
+ ! Assume the user knows the model 
+ <very short intro>
+
+ (1) Describe task
+ (2) Describe initialization + Code
+ (3) Describe construction of the state
+ (4) Call numpy.linalg.pinv (or the other thing)
+ (5) Re-run on test data
+ (6) Results and plots
+ (7) Whole code
