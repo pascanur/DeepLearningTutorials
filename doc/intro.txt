@@ -47,7 +47,6 @@ ones, so we recommand reading them in sequence (especially for those who are new
   * :ref:`Primer on recurrent models <rnn_primer>` - covers the theory of recurrent neural networks
   * :ref:`Echo State Networks for chaos system prediction <esn>`
   * :ref:`Leaky Echo State Networks <esn_leaky>`
-  * :ref:`Echo State Networks as generator models <esn_generator>`
   * :ref:`Recurrent neural networks for modeling language at the character level <rnn_char>`
   * :ref:`Recurrent neural networks for modeling language <rnn_word>`
   * :ref:`Recurrent neural networks for finding long term correlations in data <rnn_long_term>`
