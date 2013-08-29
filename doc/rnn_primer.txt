@@ -2,9 +2,14 @@
 
 Primer on Recurrent Neural Networks
 ===================================
+.. Note::
+    This tutorial assumes some familarity with recurrent neural models and
+    it is meant more as a refresher on this model. At the end of the tutorial we provide a
+    set of papers that could be used gain more insight into RNNs.
 
 A recurrent neural network (RNN) is a recursive map, that at time step :math:`t` combines the state at
-:math:`t-1` with the input to construct a new state. In order to formalize this sentence let us define some notation:
+:math:`t-1` with the input to construct a new state. In order to formalize this sentence let us define
+some notation:
 
   * :math:`u` stands for the input sequence. :math:`u_t` is the frame at position :math:`t` in the sequence of inputs
 
@@ -70,16 +75,25 @@ Several algorithms are available for training recurrent neural networks.
 Real Time Recurrent Learning (RTRL), Atyia-Paros learning rule are just a 
 few example. An interesting different approach which involves using the recurrent neural 
 network to construct a random projection has also been proposed under the
-name of Reservoir Computing. 
+name of Reservoir Computing.  Long Short Term Memory networks are recurrent 
+neural networks that have a specific structure in the hidden layer which
+helps them deal with long term correlations.
 
 Backpropagation Through Time (BPTT)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-[Rumelhart and others]
+BPTT is a widely used algorithm for computing the gradients of the recurrent
+neural model. The idea is to unfold the model in time, resulting in a
+potentially unbounded number of layers. Afterwards one simply apply the 
+backpropagation on this graph. 
 
-TODO: explain the algorithm
-have the plot (copy over)
-write the derivatives with color (copy over)
+..figure:: images/unfolded_rnn.png
+    :align: center
+
+The algorithm takes the form:
+
+..figure:: images/bptt_algorithm
+
 
 
 
