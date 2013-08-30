@@ -11,11 +11,11 @@ A recurrent neural network (RNN) is a recursive map, that at time step :math:`t`
 :math:`t-1` with the input to construct a new state. In order to formalize this sentence let us define
 some notation:
 
-  * :math:`u` stands for the input sequence. :math:`u_t` is the frame at position :math:`t` in the sequence of inputs
+  * :math:`u` stands for the input sequence. :math:`u(t)` is the frame at position :math:`t` in the sequence of inputs
 
-  * :math:`h` stands for the (hidden) state of the model. :math:`h_t` is the hidden state at step `t`
+  * :math:`h` stands for the (hidden) state of the model. :math:`h(t)` is the hidden state at step `t`
 
-  * :math:`y` is the output of the model. :math:`y_t` is the output at time step `t`
+  * :math:`y` is the output of the model. :math:`y(t)` is the output at time step `t`
 
   * :math:`W_{hh}` is the recurrent weight matrix (that connects the hidden state :math:`h` to itself)
 
@@ -35,9 +35,9 @@ The RNN is defined by the following two equations.
 
 .. math::
 
-    h_t = f(u_{t}, h_{t-1}) = \sigma_h(h_{t-1}W_{hh} + u_t W_{uh} + b_h)
+    h(t) = f(u(t), h(t-1)) = \sigma_h(h(t-1)W_{hh} + u(t) W_{uh} + b_h)
 
-    y_t = \sigma_y(h_t W_{hy} + b_y)
+    y(t) = \sigma_y(h(t) W_{hy} + b_y)
 
 The recurrence is started 
 from :math:`h_0` (the initial hidden state) which is provided by the practitioner 
@@ -45,7 +45,7 @@ or set to zero. At each time step we compute a new state :math:`h_t` and
 predict an output for that step :math:`y_t`. Below this is represented as a
 diagram:
 
-..figure:: images/rnn.png
+.. figure:: images/rnn.png
     :align: center
 
 .. Note::
@@ -59,13 +59,13 @@ diagram:
 The model can be used in several ways. One standard approach is to use 
 the RNN to transcribe some input sequence into an output sequence. 
 This means that the output sequence is of the same length as the input one, 
-and at each time step the ouput of the RNN :math:`y_t` is the prediction of
+and at each time step the ouput of the RNN :math:`y(t)` is the prediction of
 the :math:`t`-th frame of the target sequence. 
 
 Another task could be to classify the possible input sequences into
 different categories. One approach is to only consider the output at the end
 of the sequence (after the model has seen the whole sequence). If the input 
-sequence :math:`u` has :math:`T` steps, then :math:`y_T` could be a softmax 
+sequence :math:`u` has :math:`T` steps, then :math:`y(T)` could be a softmax 
 layer saying in which the category the current sequence falls. 
 
 Training Recurrent Neural Networks
@@ -84,24 +84,41 @@ Backpropagation Through Time (BPTT)
 
 BPTT is a widely used algorithm for computing the gradients of the recurrent
 neural model. The idea is to unfold the model in time, resulting in a
-potentially unbounded number of layers. Afterwards one simply apply the 
-backpropagation on this graph. 
+potentially unbounded number of layers. In the figure below we show three
+time steps corresponding to three layers (on the horizontal). :math:`C(t)`
+stands for the cost at time step :math:`t`. 
 
-..figure:: images/unfolded_rnn.png
+.. figure:: images/unfolded.png
     :align: center
 
-The algorithm takes the form:
+The green and blue arrors moving backwards in time shows the flow of the
+gradient if one simply applies backpropagation on the unfolded graph. 
 
-..figure:: images/bptt_algorithm
+The following snipped of code sketches how one can implement efficiently
+BPTT (note that before computing the gradients one has to do a forward pass
+to compute all activations):
 
+.. figure:: images/rnn_bptt.png
+    :align: center
 
 
 
 Difficulties of training recurrent models
 -----------------------------------------
-[Schmidhuber, Yoshua, us]
 
-copy from the paper basic insights
+Besides the standard issues of gradient descent, for recurrent neural
+network two additional problems have been identified: the vanishing gradient
+and exploding gradient problems [Schmidhuber91], [Bengio94], [Pascanu13]. 
+
+To understand these problem we can re-write the gradient computation as
+follows:
+
+.. figure:: images/rnn_formula.png
+
+The issue is that the term XX which is a product of T matrices, in the same
+way a product of T numbers, can either grow to infinity or shrink to 0
+exponentially fast with T. 
+
 
 Proposed solutions
 ------------------
@@ -109,16 +126,23 @@ Proposed solutions
 Echo State Network (Reservoir Computing)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [HJ]
-point to scholarpedia/techreport
+One proposed solution [Jaeger01],[Jaegre07] to this problem is to not train
+the recurrent and input weights, but rather carefully initialize them.
+Such initialization scheme usually look at the model size, the spectral
+radius of the recurrent weight (which controls how quickly the model forgets
+previously seen inputs) and input and target scaling and shifting, 
 
-The secret is in the initialization of the network. 
-* spectral radius
-* sparsity (paper by Schrwaun showing is not always important)
-* input scaling
+Additionally one can use leaky-integration neurons (low-pass filters on the
+hidden units) to make different parts of the recurrent network focus on
+different regions in frequency [..] [..]. 
 
 
 Initialization
 ~~~~~~~~~~~~~~
+
+In [Ilya] a recurrent network is initialized very similar to an ESN before
+training. 
+
 [Ilya]
 * 10 lines paragraph saying trian BPTT starting from HJ initialization
 
