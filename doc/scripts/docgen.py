@@ -10,7 +10,9 @@ from collections import defaultdict
 if __name__ == '__main__':
 
     throot = "/".join(sys.path[0].split("/")[:-2])
-
+    if not throot:
+        throot = '\\'.join(sys.path[0].split("\\")[:-2])
+    print sys.path
     options = defaultdict(bool)
     options.update(dict([x, y or True] for x, y in getopt.getopt(sys.argv[1:], 'o:', ['rst', 'help', 'nopdf'])[0]))
     if options['--help']:
@@ -42,6 +44,7 @@ if __name__ == '__main__':
     if options['--all'] or options['--rst']:
         import sphinx
         sys.path[0:0] = [os.path.join(throot, 'doc')]
+        print '...........',throot
         sphinx.main(['', '-E', os.path.join(throot, 'doc'), '.'])
 
         if not options['--nopdf']:

@@ -46,11 +46,8 @@ ones, so we recommand reading them in sequence (especially for those who are new
 
   * :ref:`Primer on recurrent models <rnn_primer>` - covers the theory of recurrent neural networks
   * :ref:`Echo State Networks for chaos system prediction <esn>`
-  * :ref:`Leaky Echo State Networks <esn_leaky>`
-  * :ref:`Recurrent neural networks for modeling language at the character level <rnn_char>`
-  * :ref:`Recurrent neural networks for modeling language <rnn_word>`
-  * :ref:`Recurrent neural networks for finding long term correlations in data <rnn_long_term>`
-  * :ref:`Long Short Term Memory models (LSTM) for finding long term correlations un data <lstm_long_term>`
+  * :ref:`Recurrent neural networks for modeling language <rnn>`
+  * :ref:`Long Short Term Memory models (LSTM) <lstm>`
 
 Building towards including the mcRBM model, we have a new tutorial on sampling
 from energy models:

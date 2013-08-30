@@ -100,6 +100,7 @@ to compute all activations):
 
 .. figure:: images/rnn_bptt.png
     :align: center
+    :scale: 60
 
 
 
@@ -114,10 +115,13 @@ To understand these problem we can re-write the gradient computation as
 follows:
 
 .. figure:: images/rnn_formula.png
+    :align: center
+    :scale: 60
 
-The issue is that the term XX which is a product of T matrices, in the same
-way a product of T numbers, can either grow to infinity or shrink to 0
-exponentially fast with T. 
+The issue is that the term :math:`\frac{\partial \mathbf{h}(t)}{\partial\mathbf{h}(t-k)}`, 
+which is a product of :math:`k` matrices, in the same
+way a product of :math:`k` numbers, can either grow to infinity or shrink to 0
+exponentially fast with :math:`k`. 
 
 
 Proposed solutions
@@ -125,68 +129,59 @@ Proposed solutions
 
 Echo State Network (Reservoir Computing)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[HJ]
-One proposed solution [Jaeger01],[Jaegre07] to this problem is to not train
-the recurrent and input weights, but rather carefully initialize them.
+
+One proposed solution to this problem is to not train the recurrent 
+weights :math:`W_{hh}` and input weights :math:`W_{uh}` [Jaeger01],
+[Jaegre07].
+One instead carefully initialize these weights.
 Such initialization scheme usually look at the model size, the spectral
 radius of the recurrent weight (which controls how quickly the model forgets
 previously seen inputs) and input and target scaling and shifting, 
 
 Additionally one can use leaky-integration neurons (low-pass filters on the
 hidden units) to make different parts of the recurrent network focus on
-different regions in frequency [..] [..]. 
+different regions in frequency [Luskes] [Hermes]. 
 
-
-Initialization
-~~~~~~~~~~~~~~
-
-In [Ilya] a recurrent network is initialized very similar to an ESN before
-training. 
-
-[Ilya]
-* 10 lines paragraph saying trian BPTT starting from HJ initialization
-
-Second-Order methods
-~~~~~~~~~~~~~~~~~~~~
-[Martens & Ilya/Puskorious with Kalman Filter]
-
-* 10 lines paragraph saying 2nd order might work. Mention the key
-components:
- - exact hessian. 
-
-reason unclear
-
-Clipping and regularizing the model
+Standard Recurrent Neural Networks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[Us]
 
-Clipping
-########
-plot + the argument for exploding gradient
+In [Sutskever13] a recurrent network is **initialized** very similar to an ESN before
+training. The paper shows that careful initialization (together with a few
+other elements like Nestorov momentum) can improve greatly the solutions one
+gets from RNNs. 
 
-Regularizing the model
-######################
+Another approach to address the difficulty of training RNNs is to use **second
+order methods** [Puskekios] [Martens].  
+
+
+**Clipping the gradients** is another approach specifically designed to deal
+with the exploding gradient problem [Pascanu13]. Each time the norm of the
+gradient is larger than some threshold the gradients are rescaled such to
+have their norm equal threshold. 
+
+One can construct a **regularization term** that forces the gradient to preserve 
+norm as they travel in time [Pascanu13]. Such an approach can address the
+vanishing gradient problem.
+
+
 
 Long-Short Term Memory (LSTM) models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[Schmidhuber/Graves]
 
-Some extensions of the model 
-----------------------------
+In [Hochreiter01] proposes a solution to the vanishing gradient problem by
+replacing the hidden units of the model with Long Short Term Memory Cells.
+These cells contain a linear unit with a self recurrent weight of one 
+which is guarded by an input and output
+gate. The information is preserved inside a cell by closing the input gate.
+Certain extensions of the basic model are usually used (for example by
+considering a forget gate). 
+A bi-directional version of the model (that goes both forward and backwards
+in time) [Graves] and deep version [Graves] were also proposed.
 
-leaky ESNs
-~~~~~~~~~~
-[cite HJ and the other guy]
+Literature review 
+-----------------
 
-bi-directional RNN/LSTM
-~~~~~~~~~~~~~~~~~~~~~~~
-[cite Alex Graves]
+A (incomplete) list of papers on recurrent neural models:
 
-rectifier units RNN
-~~~~~~~~~~~~~~~~~~~
-[cite us]
-
-deep LSTM
-~~~~~~~~~
-[cite Alex Graves]
+ * in progress
 
